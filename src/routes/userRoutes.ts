@@ -10,6 +10,7 @@ import {
   indexWorkouts,
   deleteWorkout,
 } from "../controllers/workoutController";
+import { createExercises } from "../controllers/exercisesController";
 
 const router = express.Router();
 
@@ -21,5 +22,7 @@ router.delete("/deleteUser/:userId", deleteUser);
 router.post("/:userId", createWorkout);
 router.get("/:userId", indexWorkouts);
 router.delete("/:userId/:workoutId", deleteWorkout);
+
+router.post("/:workoutId/exercises", createExercises);
 
 export default router;

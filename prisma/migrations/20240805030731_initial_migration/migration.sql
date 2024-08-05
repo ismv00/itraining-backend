@@ -12,7 +12,7 @@ CREATE TABLE "User" (
 CREATE TABLE "Workout" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
-    "dayOfWeek" INTEGER NOT NULL,
+    "dayOfWeek" INTEGER[],
     "userId" INTEGER NOT NULL,
 
     CONSTRAINT "Workout_pkey" PRIMARY KEY ("id")
@@ -28,6 +28,7 @@ CREATE TABLE "Exercise" (
     "endWeight" DOUBLE PRECISION NOT NULL,
     "image" TEXT NOT NULL,
     "workoutId" INTEGER NOT NULL,
+    "userId" INTEGER NOT NULL,
 
     CONSTRAINT "Exercise_pkey" PRIMARY KEY ("id")
 );
@@ -39,4 +40,7 @@ CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 ALTER TABLE "Workout" ADD CONSTRAINT "Workout_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Exercise" ADD CONSTRAINT "Exercise_workoutId_fkey" FOREIGN KEY ("workoutId") REFERENCES "Workout"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Exercise" ADD CONSTRAINT "Exercise_workoutId_fkey" FOREIGN KEY ("workoutId") REFERENCES "Workout"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Exercise" ADD CONSTRAINT "Exercise_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
